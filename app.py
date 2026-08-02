@@ -74,7 +74,7 @@ with tab1:
         st.caption(f"Selected FICO Range: **{fico_low} – {fico_high}**")
 
         dti = st.number_input(
-            "DTI Ratio (%)",
+            "Debt-To-Income Ratio (%)",
             -999.0,
             100.0,
             18.5,
@@ -93,19 +93,19 @@ with tab1:
             "Annual Income ($)", 0.0, 1000000.0, 65000.0, step=1000.0
         )
         verification_status = st.selectbox(
-            "Verification Status",
+            "Income Verification Status",
             ["Verified", "Source Verified", "Not Verified"],
         )
 
     with col4:
         st.caption("**Credit History & Default Status**")
-        delinq_2yrs = st.number_input("Delinq 2Yrs", 0, 20, 0)
-        pub_rec = st.number_input("Public Records", 0, 20, 0)
-        open_acc = st.number_input("Open Accounts", 0, 100, 8)
-        total_acc = st.number_input("Total Accounts", 0, 100, 18)
-        revol_bal = st.number_input("Revolving Balance ($)", 0.0, 500000.0, 12000.0)
+        delinq_2yrs = st.number_input("30+ days delay count", 0, 20, 0)
+        pub_rec = st.number_input("Derogatory Public Records", 0, 20, 0)
+        open_acc = st.number_input("Open Credit Accounts", 0, 100, 8)
+        total_acc = st.number_input("Total Credit Accounts ever", 0, 100, 18)
+        revol_bal = st.number_input("Revolving Credit Balance ($)", 0.0, 500000.0, 12000.0, help = "unpaid monthly bill that carries over to the next billing cycle")
         revol_util = st.number_input("Revolving Util (%)", 0.0, 200.0, 55.0)
-        collections_12m = st.number_input("Collections 12M", 0, 10, 0)
+        collections_12m = st.number_input("Debts taken in 12M (Non-Medical)", 0, 10, 0)
 
     st.divider()
     st.caption("**Collateral & Post-Default Details**")
