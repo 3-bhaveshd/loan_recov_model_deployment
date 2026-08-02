@@ -136,6 +136,7 @@ with tab1:
             "Paid Before Default ($)", 0.0, 100000.0, 3200.0
         )
         outstanding_principal = loan_amount - total_pymnt_before_default
+        st.caption(f"Outstanding Principal is {outstanding_principal}")
 
     with c3:
         days_past_due_at_default = st.number_input("Days Past Due at Default", 0, 365, 120)
