@@ -99,7 +99,7 @@ with tab1:
 
     with col4:
         st.caption("**Credit History & Default Status**")
-        delinq_2yrs = st.number_input("30+ days delay count", 0, 20, 0)
+        delinq_2yrs = st.number_input("30+ days payment delay count", 0, 20, 0)
         pub_rec = st.number_input("Derogatory Public Records", 0, 20, 0)
         open_acc = st.number_input("Open Credit Accounts", 0, 100, 8)
         total_acc = st.number_input("Total Credit Accounts ever", 0, 100, 18)
