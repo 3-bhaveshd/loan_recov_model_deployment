@@ -59,8 +59,8 @@ with tab1:
 
     with col2:
         st.caption("**Risk & Credit Scores**")
-        grade = st.selectbox("Grade", ["A", "B", "C", "D", "E", "F", "G"], index=1)
-        sub_grade = st.text_input("Sub-grade", "B3", help = "A-> low Risk | G->High Risk | Assigned by Lender")
+        grade = st.selectbox("Grade", ["A", "B", "C", "D", "E", "F", "G"], index=1, , help = "A-> low Risk | G->High Risk | Assigned by Lender")
+        sub_grade = st.text_input("Sub-grade", "B3")
 
         fico_low = st.slider(
             "FICO Range",
