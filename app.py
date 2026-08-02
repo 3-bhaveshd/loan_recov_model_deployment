@@ -167,38 +167,3 @@ with tab1:
             label="Estimated Dollar Recovery", value=f"${est_dollars:,.2f}"
         )
         st.progress(float(pred_val))
-
-# --- TAB 2: BATCH CSV INPUT ---
-with tab2:
-    st.subheader("Batch Loan Processing")
-    uploaded_file = st.file_uploader("Upload CSV containing loans to predict", type=["csv"])
-
-    if uploaded_file is not None:
-        batch_df = pd.read_csv(uploaded_file)
-        st.write("Data Preview:", batch_df.head(5))
-
-        if st.button("Generate Batch Predictions", type="primary"):
-            predictions = pipeline_instance.predict(batch_df)
-
-            out_df = pd.DataFrame(
-                {
-                    "loan_id": batch_df["loan_id"],
-                    "predicted_recovery_rate": predictions,
-                }
-            )
-
-            if "outstanding_principal" in batch_df.columns:
-                out_df["estimated_recovery_amount"] = (
-                    predictions * batch_df["outstanding_principal"]
-                )
-
-            st.success("Batch prediction completed successfully!")
-            st.dataframe(out_df.head(10))
-
-            csv_data = out_df.to_csv(index=False).encode("utf-8")
-            st.download_button(
-                label="Download Predictions CSV",
-                data=csv_data,
-                file_name="loan_recovery_predictions.csv",
-                mime="text/csv",
-            )
