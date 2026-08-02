@@ -26,7 +26,7 @@ st.markdown(
     "Predict expected recovery rates on defaulted loan accounts using XGBoost."
 )
 
-tab1 = st.tabs(["Single Prediction Input"])
+(tab1,) = st.tabs(["Single Prediction Input"])
 
 # --- TAB 1: SINGLE PREDICTION FORM ---
 with tab1:
