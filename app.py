@@ -118,7 +118,7 @@ with tab1:
         collateral_flag = st.selectbox(
             "Secured by Collateral?",
             options=[0, 1],
-            format_func=lambda x: "No (0 - Unsecured)" if x == 0 else "Yes (1 - Secured)",
+            format_func=lambda x: "No (Unsecured)" if x == 0 else "Yes (Secured)",
             index=0,
             key="collateral_flag_select"
         )
