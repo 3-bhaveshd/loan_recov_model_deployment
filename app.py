@@ -42,7 +42,7 @@ with tab1:
         )
         term_months = st.selectbox("Term Months", [36, 60])
         int_rate = st.number_input(
-            "Interest Rate (%)", 1.0, 40.0, 12.5, step=0.1
+            "Interest Rate (%)", 1.0, 40.0, 12.5, step=0.5
         )
         purpose = st.selectbox(
             "Purpose",
@@ -60,7 +60,7 @@ with tab1:
     with col2:
         st.caption("**Risk & Credit Scores**")
         grade = st.selectbox("Grade", ["A", "B", "C", "D", "E", "F", "G"], index=1)
-        sub_grade = st.text_input("Sub-grade", "B3")
+        sub_grade = st.text_input("Sub-grade", "B3", help = "A-> low Risk | G->High Risk" | Assigned by Lender)
 
         fico_low = st.slider(
             "FICO Range",
@@ -84,7 +84,7 @@ with tab1:
     with col3:
         st.caption("**Borrower Profile**")
         emp_length_years = st.number_input(
-            "Employment (Years)", 0.0, 50.0, 5.0, step=0.5
+            "Employment (Years)", 0.0, 50.0, 5.0
         )
         home_ownership = st.selectbox(
             "Home Ownership", ["RENT", "MORTGAGE", "OWN", "ANY"]
@@ -103,7 +103,7 @@ with tab1:
         pub_rec = st.number_input("Derogatory Public Records", 0, 20, 0)
         open_acc = st.number_input("Open Credit Accounts", 0, 100, 8)
         total_acc = st.number_input("Total Credit Accounts ever", 0, 100, 18)
-        revol_bal = st.number_input("Revolving Credit Balance ($)", 0.0, 500000.0, 12000.0, help = "unpaid monthly bill that carries over to the next billing cycle")
+        revol_bal = st.number_input("Revolving Credit Balance ($)", 0.0, 500000.0, 12000.0, step = 500.0, help = "unpaid monthly bill that carries over to the next billing cycle")
         revol_util = st.number_input("Revolving Util (%)", 0.0, 200.0, 55.0)
         collections_12m = st.number_input("Debts taken in 12M (Non-Medical)", 0, 10, 0)
 
@@ -133,7 +133,7 @@ with tab1:
 
     with c2:
         total_pymnt_before_default = st.number_input(
-            "Paid Before Default ($)", 0.0, 100000.0, 3200.0
+            "Paid Before Default ($)", 0.0, 100000.0, 3200.0, step = 1000.0
         )
         outstanding_principal = loan_amount - total_pymnt_before_default
         st.caption(f"Outstanding Principal is {outstanding_principal}")
