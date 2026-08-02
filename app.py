@@ -28,119 +28,123 @@ st.markdown(
 
 (tab1,) = st.tabs(["Single Prediction Input"])
 
-# --- TAB 1: SINGLE PREDICTION FORM ---
+# --- TAB 1: SINGLE PREDICTION INPUT ---
 with tab1:
     st.subheader("Loan & Borrower Information")
 
-    with st.form("single_loan_form"):
-        col1, col2, col3, col4 = st.columns(4)
+    # Column section for Upper Profile Inputs
+    col1, col2, col3, col4 = st.columns(4)
 
-        with col1:
-            st.caption("**Loan & Terms**")
-            loan_amount = st.number_input(
-                "Loan Amount ($)", 1000.0, 100000.0, 15000.0, step=500.0
-            )
-            term_months = st.selectbox("Term Months", [36, 60])
-            int_rate = st.number_input(
-                "Interest Rate (%)", 1.0, 40.0, 12.5, step=0.1
-            )
-            purpose = st.selectbox(
-                "Purpose",
-                [
-                    "debt_consolidation",
-                    "credit_card",
-                    "home_improvement",
-                    "major_purchase",
-                    "small_business",
-                    "car",
-                    "other",
-                ],
-            )
+    with col1:
+        st.caption("**Loan & Terms**")
+        loan_amount = st.number_input(
+            "Loan Amount ($)", 1000.0, 100000.0, 15000.0, step=500.0
+        )
+        term_months = st.selectbox("Term Months", [36, 60])
+        int_rate = st.number_input(
+            "Interest Rate (%)", 1.0, 40.0, 12.5, step=0.1
+        )
+        purpose = st.selectbox(
+            "Purpose",
+            [
+                "debt_consolidation",
+                "credit_card",
+                "home_improvement",
+                "major_purchase",
+                "small_business",
+                "car",
+                "other",
+            ],
+        )
 
-        with col2:
-            st.caption("**Risk & Credit Scores**")
-            grade = st.selectbox("Grade", ["A", "B", "C", "D", "E", "F", "G"], index=1)
-            sub_grade = st.text_input("Sub-grade", "B3")
+    with col2:
+        st.caption("**Risk & Credit Scores**")
+        grade = st.selectbox("Grade", ["A", "B", "C", "D", "E", "F", "G"], index=1)
+        sub_grade = st.text_input("Sub-grade", "B3")
 
-            fico_low = st.slider(
-                "FICO Range",
-                min_value=300,
-                max_value=846,
-                value=680,
-                step=5,
-                help="Select lower bound. Upper bound is automatically lower bound + 4.",
-            )
-            fico_high = fico_low + 4
-            st.caption(f"Selected FICO Range: **{fico_low} – {fico_high}**")
+        fico_low = st.slider(
+            "FICO Range",
+            min_value=300,
+            max_value=846,
+            value=680,
+            step=5,
+            help="Select lower bound. Upper bound is automatically lower bound + 4.",
+        )
+        fico_high = fico_low + 4
+        st.caption(f"Selected FICO Range: **{fico_low} – {fico_high}**")
 
-            dti = st.number_input(
-                "DTI Ratio (%)",
-                -999.0,
-                100.0,
-                18.5,
-                help="-999 if missing/failed pull",
-            )
+        dti = st.number_input(
+            "DTI Ratio (%)",
+            -999.0,
+            100.0,
+            18.5,
+            help="-999 if missing/failed pull",
+        )
 
-        with col3:
-            st.caption("**Borrower Profile**")
-            emp_length_years = st.number_input(
-                "Employment (Years)", 0.0, 50.0, 5.0, step=0.5
-            )
-            home_ownership = st.selectbox(
-                "Home Ownership", ["RENT", "MORTGAGE", "OWN", "ANY"]
-            )
-            annual_income = st.number_input(
-                "Annual Income ($)", 0.0, 1000000.0, 65000.0, step=1000.0
-            )
-            verification_status = st.selectbox(
-                "Verification Status",
-                ["Verified", "Source Verified", "Not Verified"],
-            )
+    with col3:
+        st.caption("**Borrower Profile**")
+        emp_length_years = st.number_input(
+            "Employment (Years)", 0.0, 50.0, 5.0, step=0.5
+        )
+        home_ownership = st.selectbox(
+            "Home Ownership", ["RENT", "MORTGAGE", "OWN", "ANY"]
+        )
+        annual_income = st.number_input(
+            "Annual Income ($)", 0.0, 1000000.0, 65000.0, step=1000.0
+        )
+        verification_status = st.selectbox(
+            "Verification Status",
+            ["Verified", "Source Verified", "Not Verified"],
+        )
 
-        with col4:
-            st.caption("**Credit History & Default Status**")
-            delinq_2yrs = st.number_input("Delinq 2Yrs", 0, 20, 0)
-            pub_rec = st.number_input("Public Records", 0, 20, 0)
-            open_acc = st.number_input("Open Accounts", 0, 100, 8)
-            total_acc = st.number_input("Total Accounts", 0, 100, 18)
-            revol_bal = st.number_input("Revolving Balance ($)", 0.0, 500000.0, 12000.0)
-            revol_util = st.number_input("Revolving Util (%)", 0.0, 200.0, 55.0)
-            collections_12m = st.number_input("Collections 12M", 0, 10, 0)
+    with col4:
+        st.caption("**Credit History & Default Status**")
+        delinq_2yrs = st.number_input("Delinq 2Yrs", 0, 20, 0)
+        pub_rec = st.number_input("Public Records", 0, 20, 0)
+        open_acc = st.number_input("Open Accounts", 0, 100, 8)
+        total_acc = st.number_input("Total Accounts", 0, 100, 18)
+        revol_bal = st.number_input("Revolving Balance ($)", 0.0, 500000.0, 12000.0)
+        revol_util = st.number_input("Revolving Util (%)", 0.0, 200.0, 55.0)
+        collections_12m = st.number_input("Collections 12M", 0, 10, 0)
 
-        st.divider()
-        st.caption("**Collateral & Post-Default Details**")
-        c1, c2, c3, c4 = st.columns(4)
+    st.divider()
+    st.caption("**Collateral & Post-Default Details**")
+    
+    # 3-column layout at the bottom
+    c1, c2, c3 = st.columns(3)
 
-        with c1:
-            # Render collateral selection dynamically inside the form via session state / reruns
-            collateral_flag = st.selectbox(
-                "Secured by Collateral?",
-                options=[0, 1],
-                format_func=lambda x: "No (0 - Unsecured)" if x == 0 else "Yes (1 - Secured)",
-                index=0,
-                key="collateral_flag_select"
+    with c1:
+        # Reactive selection outside st.form triggers instant rerun
+        collateral_flag = st.selectbox(
+            "Secured by Collateral?",
+            options=[0, 1],
+            format_func=lambda x: "No (0 - Unsecured)" if x == 0 else "Yes (1 - Secured)",
+            index=0,
+            key="collateral_flag_select"
+        )
+        
+        # Instantly displays Collateral Value box right under the dropdown
+        if collateral_flag == 1:
+            collateral_value = st.number_input(
+                "Collateral Value ($)", 0.0, 500000.0, 5000.0, step=500.0
             )
-            
-            if collateral_flag == 1:
-                collateral_value = st.number_input(
-                    "Collateral Value ($)", 0.0, 500000.0, 5000.0, step=500.0
-                )
-            else:
-                collateral_value = 0.0
+        else:
+            collateral_value = 0.0
 
-        with c2:
-            total_pymnt_before_default = st.number_input(
-                "Paid Before Default ($)", 0.0, 100000.0, 3200.0
-            )
-            outstanding_principal = st.number_input(
-                "Outstanding Principal ($)", 1.0, 100000.0, 11800.0
-            )
+    with c2:
+        total_pymnt_before_default = st.number_input(
+            "Paid Before Default ($)", 0.0, 100000.0, 3200.0
+        )
+        outstanding_principal = st.number_input(
+            "Outstanding Principal ($)", 1.0, 100000.0, 11800.0
+        )
 
-        with c3:
-            days_past_due_at_default = st.number_input("Days Past Due at Default", 0, 365, 120)
-            months_in_recovery = st.number_input("Months in Recovery", 0, 120, 6)
+    with c3:
+        days_past_due_at_default = st.number_input("Days Past Due at Default", 0, 365, 120)
+        months_in_recovery = st.number_input("Months in Recovery", 0, 120, 6)
 
-        submit_btn = st.form_submit_button("Predict Recovery Rate", type="primary")
+    st.markdown("<br>", unsafe_allow_html=True)
+    submit_btn = st.button("Predict Recovery Rate", type="primary")
 
     if submit_btn:
         input_data = pd.DataFrame(
