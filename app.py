@@ -42,7 +42,7 @@ with tab1:
             )
             term_months = st.selectbox("Term Months", [36, 60])
             int_rate = st.number_input(
-                "Interest Rate (%)", 1.0, 40.0, 12.5, step=0.5
+                "Interest Rate (%)", 1.0, 40.0, 12.5, step=0.1
             )
             purpose = st.selectbox(
                 "Purpose",
@@ -61,6 +61,7 @@ with tab1:
             st.caption("**Risk & Credit Scores**")
             grade = st.selectbox("Grade", ["A", "B", "C", "D", "E", "F", "G"], index=1)
             sub_grade = st.text_input("Sub-grade", "B3")
+
             fico_low = st.slider(
                 "FICO Range",
                 min_value=300,
@@ -71,6 +72,7 @@ with tab1:
             )
             fico_high = fico_low + 4
             st.caption(f"Selected FICO Range: **{fico_low} – {fico_high}**")
+
             dti = st.number_input(
                 "DTI Ratio (%)",
                 -999.0,
@@ -82,7 +84,7 @@ with tab1:
         with col3:
             st.caption("**Borrower Profile**")
             emp_length_years = st.number_input(
-                "Employment (Years)", 0.0, 50.0, 5.0, step=1.0
+                "Employment (Years)", 0.0, 50.0, 5.0, step=0.5
             )
             home_ownership = st.selectbox(
                 "Home Ownership", ["RENT", "MORTGAGE", "OWN", "ANY"]
@@ -98,26 +100,34 @@ with tab1:
         with col4:
             st.caption("**Credit History & Default Status**")
             delinq_2yrs = st.number_input("Delinq 2Yrs", 0, 20, 0)
-            pub_rec = st.number_input("Derogatory Public Records", 0, 20, 0)
-            open_acc = st.number_input("Currently Open Credit lines", 0, 100, 8)
-            total_acc = st.number_input("Total Credit lines ever opened", 0, 100, 18)
-            revol_bal = st.number_input("Revolving Credit Balance ($)", 0.0, 500000.0, 12000.0)
-            revol_util = st.number_input("Revolving credit utilization (%)", 0.0, 200.0, 55.0)
-            collections_12m = st.number_input("Defaulter list appearances (in last 12M)", 0, 10, 0)
+            pub_rec = st.number_input("Public Records", 0, 20, 0)
+            open_acc = st.number_input("Open Accounts", 0, 100, 8)
+            total_acc = st.number_input("Total Accounts", 0, 100, 18)
+            revol_bal = st.number_input("Revolving Balance ($)", 0.0, 500000.0, 12000.0)
+            revol_util = st.number_input("Revolving Util (%)", 0.0, 200.0, 55.0)
+            collections_12m = st.number_input("Collections 12M", 0, 10, 0)
 
         st.divider()
         st.caption("**Collateral & Post-Default Details**")
         c1, c2, c3, c4 = st.columns(4)
 
         with c1:
-            collateral_flag_ = st.selectbox("Secured by Collateral", ["No", "Yes"], index=0)
-            collateral_flag = 0 if collateral_flag_ == "No" else 1
+            # Render collateral selection dynamically inside the form via session state / reruns
+            collateral_flag = st.selectbox(
+                "Secured by Collateral?",
+                options=[0, 1],
+                format_func=lambda x: "No (0 - Unsecured)" if x == 0 else "Yes (1 - Secured)",
+                index=0,
+                key="collateral_flag_select"
+            )
+            
             if collateral_flag == 1:
                 collateral_value = st.number_input(
-                    "Collateral Value ($)", 0.0, 500000.0, 5000.0, step=1000.0
+                    "Collateral Value ($)", 0.0, 500000.0, 5000.0, step=500.0
                 )
             else:
                 collateral_value = 0.0
+
         with c2:
             total_pymnt_before_default = st.number_input(
                 "Paid Before Default ($)", 0.0, 100000.0, 3200.0
@@ -125,6 +135,7 @@ with tab1:
             outstanding_principal = st.number_input(
                 "Outstanding Principal ($)", 1.0, 100000.0, 11800.0
             )
+
         with c3:
             days_past_due_at_default = st.number_input("Days Past Due at Default", 0, 365, 120)
             months_in_recovery = st.number_input("Months in Recovery", 0, 120, 6)
@@ -135,7 +146,7 @@ with tab1:
         input_data = pd.DataFrame(
             [
                 {
-                    "loan_id": "input_loan_id",
+                    "loan_id": "LOAN_AUTO_GEN",
                     "loan_amount": loan_amount,
                     "term_months": term_months,
                     "grade": grade,
