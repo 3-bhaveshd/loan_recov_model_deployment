@@ -37,7 +37,6 @@ with tab1:
 
         with col1:
             st.caption("**Loan & Terms**")
-            loan_id = st.text_input("Loan ID", "LOAN_001")
             loan_amount = st.number_input(
                 "Loan Amount ($)", 1000.0, 100000.0, 15000.0, step=500.0
             )
@@ -126,7 +125,7 @@ with tab1:
         input_data = pd.DataFrame(
             [
                 {
-                    "loan_id": loan_id,
+                    "loan_id": "input_loan_id",
                     "loan_amount": loan_amount,
                     "term_months": term_months,
                     "grade": grade,
