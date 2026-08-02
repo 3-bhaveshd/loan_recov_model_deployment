@@ -112,7 +112,7 @@ with tab1:
         with c1:
             collateral_flag_ = st.selectbox("Secured by Collateral", ["No", "Yes"], index=0)
             collateral_flag = 0 if collateral_flag_ == "No" else 1
-            collateral_value = st.number_input("Collateral Value ($)", 0.0, 500000.0, 0.0)
+            collateral_value = 0 if collateral_flag == 0 else st.number_input("Collateral Value ($)", 0.0, 500000.0, 0.0)
         with c2:
             total_pymnt_before_default = st.number_input(
                 "Paid Before Default ($)", 0.0, 100000.0, 3200.0
