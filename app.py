@@ -61,12 +61,14 @@ with tab1:
             st.caption("**Risk & Credit Scores**")
             grade = st.selectbox("Grade", ["A", "B", "C", "D", "E", "F", "G"], index=1)
             sub_grade = st.text_input("Sub-grade", "B3")
-            fico_low = st.number_input(
-                "FICO Range Low", 300, 850, 680, step=1
+            fico_range = st.slider(
+                "FICO Score Range",
+                min_value=300,
+                max_value=850,
+                value=(680, 684),
+                step=1
             )
-            fico_high = st.number_input(
-                "FICO Range High", 300, 850, 684, step=1
-            )
+            fico_low, fico_high = fico_range
             dti = st.number_input(
                 "DTI Ratio (%)",
                 -999.0,
