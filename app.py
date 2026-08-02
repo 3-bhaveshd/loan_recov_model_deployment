@@ -42,7 +42,7 @@ with tab1:
             )
             term_months = st.selectbox("Term Months", [36, 60])
             int_rate = st.number_input(
-                "Interest Rate (%)", 1.0, 40.0, 12.5, step=0.1
+                "Interest Rate (%)", 1.0, 40.0, 12.5, step=0.5
             )
             purpose = st.selectbox(
                 "Purpose",
