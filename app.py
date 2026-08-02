@@ -82,7 +82,7 @@ with tab1:
         with col3:
             st.caption("**Borrower Profile**")
             emp_length_years = st.number_input(
-                "Employment (Years)", 0.0, 50.0, 5.0, step=0.5
+                "Employment (Years)", 0.0, 50.0, 5.0, step=1.0
             )
             home_ownership = st.selectbox(
                 "Home Ownership", ["RENT", "MORTGAGE", "OWN", "ANY"]
@@ -98,19 +98,20 @@ with tab1:
         with col4:
             st.caption("**Credit History & Default Status**")
             delinq_2yrs = st.number_input("Delinq 2Yrs", 0, 20, 0)
-            pub_rec = st.number_input("Public Records", 0, 20, 0)
-            open_acc = st.number_input("Open Accounts", 0, 100, 8)
-            total_acc = st.number_input("Total Accounts", 0, 100, 18)
-            revol_bal = st.number_input("Revolving Balance ($)", 0.0, 500000.0, 12000.0)
-            revol_util = st.number_input("Revolving Util (%)", 0.0, 200.0, 55.0)
-            collections_12m = st.number_input("Collections 12M", 0, 10, 0)
+            pub_rec = st.number_input("Derogatory Public Records", 0, 20, 0)
+            open_acc = st.number_input("Currently Open Credit lines", 0, 100, 8)
+            total_acc = st.number_input("Total Credit lines ever opened", 0, 100, 18)
+            revol_bal = st.number_input("Revolving Credit Balance ($)", 0.0, 500000.0, 12000.0)
+            revol_util = st.number_input("Revolving credit utilization (%)", 0.0, 200.0, 55.0)
+            collections_12m = st.number_input("Defaulter list appearances (in last 12M)", 0, 10, 0)
 
         st.divider()
         st.caption("**Collateral & Post-Default Details**")
         c1, c2, c3, c4 = st.columns(4)
 
         with c1:
-            collateral_flag = st.selectbox("Secured by Collateral", [0, 1], index=0)
+            collateral_flag_ = st.selectbox("Secured by Collateral", ["No", "Yes"], index=0)
+            collateral_flag = 0 if collateral_flag_ == "No" else 1
             collateral_value = st.number_input("Collateral Value ($)", 0.0, 500000.0, 0.0)
         with c2:
             total_pymnt_before_default = st.number_input(
